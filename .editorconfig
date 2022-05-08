@@ -1,0 +1,114 @@
+[*]
+charset=utf-8
+trim_trailing_whitespace=false
+insert_final_newline=false
+indent_style=tab
+indent_size=4
+tab_width=4
+
+###############################
+# C# Formatting Rules         #
+###############################
+# New line preferences
+csharp_new_line_before_open_brace = none
+csharp_new_line_before_else = true
+csharp_new_line_before_catch = true
+csharp_new_line_before_finally = true
+csharp_new_line_before_members_in_object_initializers = true
+csharp_new_line_before_members_in_anonymous_types = true
+csharp_new_line_between_query_expression_clauses = true
+
+csharp_preferred_modifier_order=public, private, protected, internal, new, abstract, virtual, sealed, override, static, readonly, extern, unsafe, volatile, async:suggestion
+csharp_style_var_elsewhere=true:suggestion
+csharp_style_var_for_built_in_types=true:suggestion
+csharp_style_var_when_type_is_apparent=true:suggestion
+csharp_style_namespace_declarations=file_scoped:warning
+dotnet_style_parentheses_in_arithmetic_binary_operators=never_if_unnecessary:none
+dotnet_style_parentheses_in_other_binary_operators=never_if_unnecessary:none
+dotnet_style_parentheses_in_relational_binary_operators=never_if_unnecessary:none
+dotnet_style_predefined_type_for_locals_parameters_members=true:suggestion
+dotnet_style_predefined_type_for_member_access=true:suggestion
+dotnet_style_qualification_for_event=false:suggestion
+dotnet_style_qualification_for_field=false:suggestion
+dotnet_style_qualification_for_method=false:suggestion
+dotnet_style_qualification_for_property=false:suggestion
+dotnet_style_require_accessibility_modifiers=for_non_interface_members:suggestion
+
+# ReSharper properties
+resharper_align_linq_query=true
+resharper_align_multiline_argument=true
+resharper_align_multiline_binary_expressions_chain=false
+resharper_align_multiline_calls_chain=true
+resharper_align_multiline_for_stmt=true
+resharper_align_multiline_parameter=true
+resharper_align_multiple_declaration=true
+resharper_align_multline_type_parameter_constrains=true
+resharper_align_multline_type_parameter_list=true
+resharper_autodetect_indent_settings=true
+resharper_blank_lines_after_control_transfer_statements=1
+resharper_blank_lines_after_multiline_statements=1
+resharper_blank_lines_before_block_statements=1
+resharper_blank_lines_before_control_transfer_statements=1
+resharper_blank_lines_before_multiline_statements=1
+resharper_blank_lines_inside_namespace=1
+resharper_blank_lines_inside_type=1
+resharper_csharp_align_multiline_argument=false
+resharper_csharp_align_multiline_parameter=false
+resharper_csharp_blank_lines_around_region=0
+resharper_csharp_blank_lines_inside_region=0
+resharper_csharp_keep_blank_lines_in_declarations=1
+resharper_csharp_stick_comment=false
+resharper_int_align_switch_sections=true
+resharper_keep_existing_declaration_parens_arrangement=false
+resharper_keep_existing_embedded_arrangement=false
+resharper_keep_existing_expr_member_arrangement=false
+resharper_keep_existing_initializer_arrangement=false
+resharper_keep_existing_switch_expression_arrangement=false
+resharper_max_enum_members_on_line=1
+resharper_outdent_binary_ops=true
+resharper_outdent_commas=true
+resharper_outdent_dots=true
+resharper_remove_blank_lines_near_braces_in_declarations=false
+resharper_use_indent_from_vs=false
+resharper_wrap_after_declaration_lpar=true
+resharper_wrap_before_arrow_with_expressions=true
+
+# ReSharper inspection severities
+resharper_arrange_redundant_parentheses_highlighting=hint
+resharper_arrange_this_qualifier_highlighting=hint
+resharper_arrange_type_member_modifiers_highlighting=hint
+resharper_arrange_type_modifiers_highlighting=hint
+resharper_built_in_type_reference_style_for_member_access_highlighting=hint
+resharper_built_in_type_reference_style_highlighting=hint
+resharper_redundant_base_qualifier_highlighting=warning
+resharper_suggest_var_or_type_built_in_types_highlighting=hint
+resharper_suggest_var_or_type_elsewhere_highlighting=hint
+resharper_suggest_var_or_type_simple_types_highlighting=hint
+resharper_web_config_module_not_resolved_highlighting=warning
+resharper_web_config_type_not_resolved_highlighting=warning
+resharper_web_config_wrong_module_highlighting=warning
+
+[{*.uproject,*.json}]
+indent_style=tab
+indent_size=2
+tab_width=2
+
+[*.{appxmanifest,asax,ascx,aspx,build,cs,cshtml,dtd,master,nuspec,razor,resw,resx,skin,vb,xaml,xamlx,xoml,xsd}]
+indent_style=tab
+indent_size=4
+tab_width=4
+
+[{.eslintrc,.stylelintrc,jest.config,.babelrc,bowerrc,*.jsb3,*.jsb2,*.json}]
+indent_style=tab
+indent_size=2
+tab_width=2
+
+[*.{appxmanifest,asax,ascx,aspx,build,cs,cshtml,dtd,fs,fsi,fsscript,fsx,master,ml,mli,nuspec,razor,resw,resx,skin,vb,xaml,xamlx,xoml,xsd}]
+indent_style=tab
+indent_size=4
+tab_width=4
+
+# CS0114: Member hides inherited member; missing override or new keyword
+dotnet_diagnostic.CS0114.severity = error
+dotnet_diagnostic.CS8618.severity = none
+dotnet_diagnostic.CS1591.severity = none
