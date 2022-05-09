@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - MateMachine.CodeChallenge.SocialApp</title>
+</head>
+<body>
+    @if (User.Identity.IsAuthenticated) {
+    <div>
+        <a href="#">Users</a> |
+        <a href="#">Friends</a> | 
+        <a asp-page="./Account/Signout">Logout</a>
+    </div>
+} else {
+    <a asp-page="./Account/Login" asp-route-returnUrl="@Url.Page("Index")">Login</a>
+}
+@RenderBody()
+</body>
+</html>
