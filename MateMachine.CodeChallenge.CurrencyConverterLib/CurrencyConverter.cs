@@ -48,15 +48,17 @@ public sealed class CurrencyConverter : ICurrencyConverter {
 	}
 
 	public void UpdateConfiguration(IEnumerable<Tuple<string, string, double>> conversionRates) {
-		if (!conversionRates.Any()) {
+		var tuples = conversionRates.ToList();
+
+		if (!tuples.Any()) {
 			return;
 		}
 
-		foreach (var rate in conversionRates) {
+		foreach (var rate in tuples) {
 			var origin = _rates.FirstOrDefault(_ => _.Item1 == rate.Item1 && _.Item2 == rate.Item2);
 
 			if (origin is null) {
-				_rates.Add(new(rate.Item1, rate.Item2, rate.Item3));
+				_rates.Add(new Tuple<string, string, double>(rate.Item1, rate.Item2, rate.Item3));
 			}
 			else {
 				var index = _rates.IndexOf(origin);

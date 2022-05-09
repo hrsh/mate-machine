@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddDbContext<DataContext>(_configLocalDbOptions);
+builder.Services.AddDbContext<DataContext>(ConfigLocalDbOptions);
 
 builder.Services.AddIdentity<AppUser, AppRole>()
 	.AddEntityFrameworkStores<DataContext>()
@@ -53,7 +53,7 @@ app.MapRazorPages();
 
 await app.RunAsync();
 
-void _configLocalDbOptions(IServiceProvider serviceProvider, DbContextOptionsBuilder dbContextOptionsBuilder) {
+void ConfigLocalDbOptions(IServiceProvider serviceProvider, DbContextOptionsBuilder dbContextOptionsBuilder) {
 	dbContextOptionsBuilder.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"), npgsqlOptionsAction => {
 		npgsqlOptionsAction.MigrationsAssembly(typeof(Program).Assembly.GetName().Name);
 	});
