@@ -1,0 +1,18 @@
+@page "/friends/my"
+@model FriendsPage
+
+@{
+    ViewData["Title"] = "Friends";
+}
+
+<h1>My Friends</h1>
+
+@if(Model.FriendsList is null || !Model.FriendsList.Any()) {
+    <h4>You have no friends yet!</h4>
+} else{
+    foreach(var friend in Model.FriendsList) {
+        <div>
+            <a asp-page="./UserProfile" asp-route-userId="@friend.Id">@friend.FullName</a> <small>(@friend.Status)</small><hr>
+        </div>
+    }
+}

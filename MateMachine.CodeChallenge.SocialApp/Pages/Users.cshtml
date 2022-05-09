@@ -1,0 +1,19 @@
+@page "/users"
+@model UsersPage
+@{
+    ViewData["Title"] = "Users";
+}
+
+<h1>Users</h1>
+
+@if(Model.UsersDto is null || !Model.UsersDto.Any()) {
+    <h1>Nothing found!</h1>
+} else {
+    <ul>
+        @foreach(var user in Model.UsersDto) {
+            <li>
+                <a asp-page="./UserProfile" asp-route-userId="@user.Id">@user.FullName</a>
+            </li>
+        }
+    </ul>
+}
