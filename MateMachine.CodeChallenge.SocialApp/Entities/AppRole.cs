@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Identity;
 
-namespace MateMachine.CodeChallenge.SocialApp.Models;
+namespace MateMachine.CodeChallenge.SocialApp.Entities;
 
 public sealed class AppRole : IdentityRole<long> {
 	public IList<AppUserRole> Users { get; private set; }

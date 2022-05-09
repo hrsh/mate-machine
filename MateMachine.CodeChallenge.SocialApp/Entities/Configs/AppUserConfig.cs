@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace MateMachine.CodeChallenge.SocialApp.Models.Configs;
+namespace MateMachine.CodeChallenge.SocialApp.Entities.Configs;
 
 public class AppUserConfig : IEntityTypeConfiguration<AppUser> {
 	public void Configure(EntityTypeBuilder<AppUser> builder) {

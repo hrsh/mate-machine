@@ -1,20 +1,26 @@
 using MateMachine.CodeChallenge.SocialApp.Data;
-using MateMachine.CodeChallenge.SocialApp.Models;
+using MateMachine.CodeChallenge.SocialApp.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-//var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
-
 builder.Services.AddDbContext<DataContext>(_configLocalDbOptions);
 
+//builder.Services.AddIdentity<AppUser, AppRole>()
+//	.AddEntityFrameworkStores<DataContext>()
+//	.AddDefaultTokenProviders();
 builder.Services.AddIdentity<AppUser, AppRole>()
+	.AddEntityFrameworkStores<DataContext>()
 	.AddDefaultTokenProviders()
-	.AddEntityFrameworkStores<DataContext>();
+	.AddDefaultUI();
 
 builder.Services.AddControllersWithViews();
+builder.Services.AddRazorPages();
 builder.Services.AddRouting(_ => _.LowercaseUrls = true);
+
+builder.Services.AddAuthentication();
+builder.Services.AddAuthorization();
 
 var app = builder.Build();
 
@@ -40,6 +46,7 @@ app.UseAuthorization();
 app.MapControllerRoute(
 	name: "default",
 	pattern: "{controller=Home}/{action=Index}/{id?}");
+app.MapRazorPages();
 
 await app.RunAsync();
 

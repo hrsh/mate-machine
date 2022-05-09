@@ -1,4 +1,4 @@
-using MateMachine.CodeChallenge.SocialApp.Models;
+using MateMachine.CodeChallenge.SocialApp.Entities;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 

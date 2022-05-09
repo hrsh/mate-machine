@@ -1,4 +1,4 @@
-namespace MateMachine.CodeChallenge.SocialApp.Models;
+namespace MateMachine.CodeChallenge.SocialApp.Entities;
 
 public sealed class FriendRequest {
 	private FriendRequest() { }

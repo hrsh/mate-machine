@@ -1,8 +1,8 @@
-using MateMachine.CodeChallenge.SocialApp.Models;
+using MateMachine.CodeChallenge.SocialApp.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace MateMachine.CodeChallenge.SocialApp.Models.Configs;
+namespace MateMachine.CodeChallenge.SocialApp.Entities.Configs;
 
 public class AppUserRoleConfig : IEntityTypeConfiguration<AppUserRole> {
 	public void Configure(EntityTypeBuilder<AppUserRole> builder) {

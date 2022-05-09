@@ -1,0 +1,23 @@
+@page "/account/login/{returnUrl?}"
+@model MateMachine.CodeChallenge.SocialApp.Pages.Account.LoginPage
+@{
+    ViewData["Title"] = "Login";
+}
+
+<h1>Login</h1>
+<form method="post">
+    <input type="hidden" asp-for="ReturnUrl"/>
+    <div>
+        <label>Username:</label>
+        <input type="text" asp-for="LoginViewModel.Username" required placeholder="Username" />
+    </div>
+    <div>
+        <label>Password:</label>
+        <input type="password" asp-for="LoginViewModel.Password" required placeholder="***" />
+    </div>
+    <div>
+        <input type="checkbox" asp-for="LoginViewModel.Remember"/>
+    </div>
+    <button type="submit">Login</button> 
+    <a asp-page="./Signup" asp-route-returnUrl="@Model.ReturnUrl">Signup</a>
+</form>
