@@ -17,6 +17,8 @@ public sealed class AppUser : IdentityUser<long> {
 
 	public IList<AppUserClaim> Claims { get; private set; }
 
+	public IList<Friend> Friends { get; private set; }
+
 	public static AppUser New(
 		long userId,
 		string firstName,

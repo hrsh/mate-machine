@@ -75,23 +75,21 @@ namespace MateMachine.CodeChallenge.SocialApp.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "FriendRequest",
+                name: "Friends",
                 columns: table => new
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    FromId = table.Column<long>(type: "bigint", nullable: false),
-                    ToId = table.Column<long>(type: "bigint", nullable: false),
-                    Accepted = table.Column<bool>(type: "boolean", nullable: false),
-                    RequestedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
-                    ReactedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true)
+                    UserId = table.Column<long>(type: "bigint", nullable: false),
+                    FriendId = table.Column<long>(type: "bigint", nullable: false),
+                    Status = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_FriendRequest", x => x.Id);
+                    table.PrimaryKey("PK_Friends", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_FriendRequest_Users_FromId",
-                        column: x => x.FromId,
+                        name: "FK_Friends_Users_UserId",
+                        column: x => x.UserId,
                         principalTable: "Users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -195,9 +193,9 @@ namespace MateMachine.CodeChallenge.SocialApp.Data.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_FriendRequest_FromId",
-                table: "FriendRequest",
-                column: "FromId");
+                name: "IX_Friends_UserId",
+                table: "Friends",
+                column: "UserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_RoleClaims_RoleId",
@@ -250,7 +248,7 @@ namespace MateMachine.CodeChallenge.SocialApp.Data.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "FriendRequest");
+                name: "Friends");
 
             migrationBuilder.DropTable(
                 name: "RoleClaims");

@@ -1,0 +1,22 @@
+@page "/friends/requests"
+@model FriendRequestPage
+
+@{
+    ViewData["Title"] = "Friends";
+}
+
+<h1>My Requests</h1>
+
+@if(Model.Requests is null || !Model.Requests.Any()) {
+    <h4>You have no friends yet!</h4>
+} else{
+    foreach(var request in Model.Requests) {
+        <div>
+            <a asp-page="./UserProfile" asp-route-userId="@request.Id">@request.FullName</a> 
+            <form method="post">
+                <input type="hidden" asp-for="FriendId" value="@request.Id" />
+                <button type="submit">Accept</button>
+            </form><hr>
+        </div>
+    }
+}

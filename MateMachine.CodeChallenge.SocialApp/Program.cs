@@ -1,5 +1,7 @@
 using MateMachine.CodeChallenge.SocialApp.Data;
 using MateMachine.CodeChallenge.SocialApp.Entities;
+using MateMachine.CodeChallenge.SocialApp.Mappers;
+using MateMachine.CodeChallenge.SocialApp.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -7,9 +9,6 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddDbContext<DataContext>(_configLocalDbOptions);
 
-//builder.Services.AddIdentity<AppUser, AppRole>()
-//	.AddEntityFrameworkStores<DataContext>()
-//	.AddDefaultTokenProviders();
 builder.Services.AddIdentity<AppUser, AppRole>()
 	.AddEntityFrameworkStores<DataContext>()
 	.AddDefaultTokenProviders()
@@ -21,6 +20,10 @@ builder.Services.AddRouting(_ => _.LowercaseUrls = true);
 
 builder.Services.AddAuthentication();
 builder.Services.AddAuthorization();
+
+builder.Services.AddSingleton<DefaultMapper>();
+builder.Services.AddScoped<IFriendService, FriendService>();
+builder.Services.AddScoped<IUserService, UserService>();
 
 var app = builder.Build();
 

@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace MateMachine.CodeChallenge.SocialApp.Data.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20220509060513_Init")]
+    [Migration("20220509124221_Init")]
     partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -24,7 +24,7 @@ namespace MateMachine.CodeChallenge.SocialApp.Data.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("MateMachine.CodeChallenge.SocialApp.Models.AppRole", b =>
+            modelBuilder.Entity("MateMachine.CodeChallenge.SocialApp.Entities.AppRole", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -53,7 +53,7 @@ namespace MateMachine.CodeChallenge.SocialApp.Data.Migrations
                     b.ToTable("Roles", (string)null);
                 });
 
-            modelBuilder.Entity("MateMachine.CodeChallenge.SocialApp.Models.AppRoleClaim", b =>
+            modelBuilder.Entity("MateMachine.CodeChallenge.SocialApp.Entities.AppRoleClaim", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -79,7 +79,7 @@ namespace MateMachine.CodeChallenge.SocialApp.Data.Migrations
                     b.ToTable("RoleClaims", (string)null);
                 });
 
-            modelBuilder.Entity("MateMachine.CodeChallenge.SocialApp.Models.AppUser", b =>
+            modelBuilder.Entity("MateMachine.CodeChallenge.SocialApp.Entities.AppUser", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -157,7 +157,7 @@ namespace MateMachine.CodeChallenge.SocialApp.Data.Migrations
                     b.ToTable("Users", (string)null);
                 });
 
-            modelBuilder.Entity("MateMachine.CodeChallenge.SocialApp.Models.AppUserClaim", b =>
+            modelBuilder.Entity("MateMachine.CodeChallenge.SocialApp.Entities.AppUserClaim", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -183,7 +183,7 @@ namespace MateMachine.CodeChallenge.SocialApp.Data.Migrations
                     b.ToTable("UserClaims", (string)null);
                 });
 
-            modelBuilder.Entity("MateMachine.CodeChallenge.SocialApp.Models.AppUserLogin", b =>
+            modelBuilder.Entity("MateMachine.CodeChallenge.SocialApp.Entities.AppUserLogin", b =>
                 {
                     b.Property<string>("LoginProvider")
                         .HasMaxLength(512)
@@ -212,7 +212,7 @@ namespace MateMachine.CodeChallenge.SocialApp.Data.Migrations
                     b.ToTable("UserLogins", (string)null);
                 });
 
-            modelBuilder.Entity("MateMachine.CodeChallenge.SocialApp.Models.AppUserRole", b =>
+            modelBuilder.Entity("MateMachine.CodeChallenge.SocialApp.Entities.AppUserRole", b =>
                 {
                     b.Property<long>("UserId")
                         .HasColumnType("bigint");
@@ -227,7 +227,7 @@ namespace MateMachine.CodeChallenge.SocialApp.Data.Migrations
                     b.ToTable("UserRoles", (string)null);
                 });
 
-            modelBuilder.Entity("MateMachine.CodeChallenge.SocialApp.Models.AppUserToken", b =>
+            modelBuilder.Entity("MateMachine.CodeChallenge.SocialApp.Entities.AppUserToken", b =>
                 {
                     b.Property<long>("UserId")
                         .HasColumnType("bigint");
@@ -254,7 +254,7 @@ namespace MateMachine.CodeChallenge.SocialApp.Data.Migrations
                     b.ToTable("UserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("MateMachine.CodeChallenge.SocialApp.Models.FriendRequest", b =>
+            modelBuilder.Entity("MateMachine.CodeChallenge.SocialApp.Entities.Friend", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -262,31 +262,25 @@ namespace MateMachine.CodeChallenge.SocialApp.Data.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
 
-                    b.Property<bool>("Accepted")
-                        .HasColumnType("boolean");
-
-                    b.Property<long>("FromId")
+                    b.Property<long>("FriendId")
                         .HasColumnType("bigint");
 
-                    b.Property<DateTimeOffset?>("ReactedAt")
-                        .HasColumnType("timestamp with time zone");
+                    b.Property<int>("Status")
+                        .HasColumnType("integer");
 
-                    b.Property<DateTimeOffset>("RequestedAt")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<long>("ToId")
+                    b.Property<long>("UserId")
                         .HasColumnType("bigint");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("FromId");
+                    b.HasIndex("UserId");
 
-                    b.ToTable("FriendRequest");
+                    b.ToTable("Friends");
                 });
 
-            modelBuilder.Entity("MateMachine.CodeChallenge.SocialApp.Models.AppRoleClaim", b =>
+            modelBuilder.Entity("MateMachine.CodeChallenge.SocialApp.Entities.AppRoleClaim", b =>
                 {
-                    b.HasOne("MateMachine.CodeChallenge.SocialApp.Models.AppRole", "Role")
+                    b.HasOne("MateMachine.CodeChallenge.SocialApp.Entities.AppRole", "Role")
                         .WithMany("Claims")
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -295,9 +289,9 @@ namespace MateMachine.CodeChallenge.SocialApp.Data.Migrations
                     b.Navigation("Role");
                 });
 
-            modelBuilder.Entity("MateMachine.CodeChallenge.SocialApp.Models.AppUserClaim", b =>
+            modelBuilder.Entity("MateMachine.CodeChallenge.SocialApp.Entities.AppUserClaim", b =>
                 {
-                    b.HasOne("MateMachine.CodeChallenge.SocialApp.Models.AppUser", "User")
+                    b.HasOne("MateMachine.CodeChallenge.SocialApp.Entities.AppUser", "User")
                         .WithMany("Claims")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -306,28 +300,28 @@ namespace MateMachine.CodeChallenge.SocialApp.Data.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("MateMachine.CodeChallenge.SocialApp.Models.AppUserLogin", b =>
+            modelBuilder.Entity("MateMachine.CodeChallenge.SocialApp.Entities.AppUserLogin", b =>
                 {
-                    b.HasOne("MateMachine.CodeChallenge.SocialApp.Models.AppUser", null)
+                    b.HasOne("MateMachine.CodeChallenge.SocialApp.Entities.AppUser", null)
                         .WithMany("Logins")
                         .HasForeignKey("AppUserId");
 
-                    b.HasOne("MateMachine.CodeChallenge.SocialApp.Models.AppUser", null)
+                    b.HasOne("MateMachine.CodeChallenge.SocialApp.Entities.AppUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("MateMachine.CodeChallenge.SocialApp.Models.AppUserRole", b =>
+            modelBuilder.Entity("MateMachine.CodeChallenge.SocialApp.Entities.AppUserRole", b =>
                 {
-                    b.HasOne("MateMachine.CodeChallenge.SocialApp.Models.AppRole", "Role")
+                    b.HasOne("MateMachine.CodeChallenge.SocialApp.Entities.AppRole", "Role")
                         .WithMany("Users")
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("MateMachine.CodeChallenge.SocialApp.Models.AppUser", "User")
+                    b.HasOne("MateMachine.CodeChallenge.SocialApp.Entities.AppUser", "User")
                         .WithMany("Roles")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -338,38 +332,40 @@ namespace MateMachine.CodeChallenge.SocialApp.Data.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("MateMachine.CodeChallenge.SocialApp.Models.AppUserToken", b =>
+            modelBuilder.Entity("MateMachine.CodeChallenge.SocialApp.Entities.AppUserToken", b =>
                 {
-                    b.HasOne("MateMachine.CodeChallenge.SocialApp.Models.AppUser", null)
+                    b.HasOne("MateMachine.CodeChallenge.SocialApp.Entities.AppUser", null)
                         .WithMany("UserTokens")
                         .HasForeignKey("AppUserId");
 
-                    b.HasOne("MateMachine.CodeChallenge.SocialApp.Models.AppUser", null)
+                    b.HasOne("MateMachine.CodeChallenge.SocialApp.Entities.AppUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("MateMachine.CodeChallenge.SocialApp.Models.FriendRequest", b =>
+            modelBuilder.Entity("MateMachine.CodeChallenge.SocialApp.Entities.Friend", b =>
                 {
-                    b.HasOne("MateMachine.CodeChallenge.SocialApp.Models.AppUser", null)
-                        .WithMany()
-                        .HasForeignKey("FromId")
+                    b.HasOne("MateMachine.CodeChallenge.SocialApp.Entities.AppUser", null)
+                        .WithMany("Friends")
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("MateMachine.CodeChallenge.SocialApp.Models.AppRole", b =>
+            modelBuilder.Entity("MateMachine.CodeChallenge.SocialApp.Entities.AppRole", b =>
                 {
                     b.Navigation("Claims");
 
                     b.Navigation("Users");
                 });
 
-            modelBuilder.Entity("MateMachine.CodeChallenge.SocialApp.Models.AppUser", b =>
+            modelBuilder.Entity("MateMachine.CodeChallenge.SocialApp.Entities.AppUser", b =>
                 {
                     b.Navigation("Claims");
+
+                    b.Navigation("Friends");
 
                     b.Navigation("Logins");
 

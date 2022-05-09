@@ -1,9 +1,12 @@
 using MateMachine.CodeChallenge.SocialApp.Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace MateMachine.CodeChallenge.SocialApp.Pages.Account;
+
+[Authorize]
 public class SignoutPage : PageModel {
 	private readonly SignInManager<AppUser> _signInManager;
 

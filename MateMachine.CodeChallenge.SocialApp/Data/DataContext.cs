@@ -21,4 +21,6 @@ public class DataContext : IdentityDbContext<
 
 		builder.ApplyConfigurationsFromAssembly(GetType().Assembly);
 	}
+
+	public DbSet<Friend> Friends { get; set; }
 }
