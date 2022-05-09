@@ -1,0 +1,38 @@
+@page "/account/signup/{returnUrl?}"
+@{
+    ViewData["Title"] = "Login";
+}
+
+@model SignupPage
+
+<h1>Signup</h1>
+<form method="post">
+    <input type="hidden" asp-for="ReturnUrl"/>
+    <div>
+        <label>Username:</label>
+        <input type="text" asp-for="SignupViewModel.UserName" required placeholder="Username" />
+    </div>
+    <div>
+        <label>Password:</label>
+        <input type="password" asp-for="SignupViewModel.Password" required placeholder="***" />
+    </div>
+    <div>
+        <label>First name:</label>
+        <input type="text" asp-for="SignupViewModel.FirstName" required placeholder="FirstName" />
+    </div>
+    <div>
+        <label>Last name:</label>
+        <input type="text" asp-for="SignupViewModel.LastName" required placeholder="LastName" />
+    </div>
+    <div>
+        <label>Email:</label>
+        <input type="email" asp-for="SignupViewModel.Email" required placeholder="Email" />
+    </div>
+    <div>
+        <label>Phone number:</label>
+        <input type="text" asp-for="SignupViewModel.PhoneNumber" required placeholder="PhoneNumber" />
+    </div>
+
+    <button type="submit">Signup</button> 
+    <a asp-page="./Login" asp-route-returnUrl="@Model.ReturnUrl">Login</a>
+</form>

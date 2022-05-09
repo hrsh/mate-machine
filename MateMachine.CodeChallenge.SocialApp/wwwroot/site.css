@@ -1,0 +1,13 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&family=Roboto:wght@300&display=swap');
+
+* {
+	font-family: 'Roboto', sans-serif;
+}
+
+a {
+	text-decoration: none !important;
+}
+
+a:hover {
+	text-decoration: underline
+}

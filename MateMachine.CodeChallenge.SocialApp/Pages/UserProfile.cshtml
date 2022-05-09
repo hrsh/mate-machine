@@ -1,0 +1,24 @@
+@page "/users/send-request/{userId}"
+@model UserProfilePage
+
+@{
+    ViewData["Title"] = Model.UserProfileViewModel.FullName;
+}
+
+<h1>Send friend request</h1>
+<h2>@Model.UserProfileViewModel.FullName</h2>
+@if (Model.UserProfileViewModel.Status == MateMachine.CodeChallenge.SocialApp.Models.FriendStatus.Friend) {
+    <p>You are friend :)</p>
+} else if (Model.UserProfileViewModel.Status == MateMachine.CodeChallenge.SocialApp.Models.FriendStatus.Pending) {
+    <p>Request is sent!</p>
+} else if(Model.UserProfileViewModel.Status == MateMachine.CodeChallenge.SocialApp.Models.FriendStatus.NeedAction) {
+    <p>@Model.UserProfileViewModel.FullName has already sent a friend request to you!</p>
+    <p>
+        Go to your feriend <a asp-page="./FriendRequest">request</a>!
+    </p>
+} else {
+    <form method="post">
+        <input type="hidden" asp-for="UserProfileViewModel.Id" />
+        <button type="submit">Send</button>
+    </form>
+}
