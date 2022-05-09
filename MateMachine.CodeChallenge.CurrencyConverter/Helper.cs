@@ -4,39 +4,39 @@ namespace MateMachine.CodeChallenge.CurrencyConverter;
 
 public class Helper {
 	public static void ShowMenu() {
-		Console.WriteLine($"1: List of converters");
-		Console.WriteLine($"2: Update converter");
-		Console.WriteLine($"3: Convert");
-		Console.WriteLine($"4: Clear conversion rates");
-		Console.WriteLine($"5: Set conversion rates to default");
-		Console.WriteLine($"9: Exit\n");
-		Console.Write($"> ");
+		Print($"1: List of converters");
+		Print($"2: Update converter");
+		Print($"3: Convert");
+		Print($"4: Clear conversion rates");
+		Print($"5: Set conversion rates to default");
+		Print($"9: Exit\n");
+		Print($"> ", false);
 	}
 
 	public static void Update(ICurrencyConverter converter) {
 		var getInput = true;
 		var input = new List<Tuple<string, string, double>>();
 		do {
-			Console.WriteLine("Enter origin currency, destination currency, convert rate: ");
+			Print("Enter origin currency, destination currency, convert rate: ");
 			string? fromCurrency, toCurrency;
 			double convertRate;
-			Console.Write("Origin currency: ");
+			Print("Origin currency: ", false);
 			while ((fromCurrency = Console.ReadLine()) is null || string.IsNullOrWhiteSpace(fromCurrency)) {
-				Console.Write("Enter a valid value for origin currency: ");
+				Print("Enter a valid value for origin currency: ", false);
 			}
 
-			Console.Write("Destination currency: ");
+			Print("Destination currency: ", false);
 			while ((toCurrency = Console.ReadLine()) is null || string.IsNullOrWhiteSpace(toCurrency)) {
-				Console.Write("Enter a valid value for destination currency: ");
+				Print("Enter a valid value for destination currency: ", false);
 			}
 
-			Console.Write("Rate: ");
+			Print("Rate: ", false);
 			while (!double.TryParse(Console.ReadLine(), out convertRate) || convertRate == 0) {
-				Console.Write("Enter a valid value for convert rate: ");
+				Print("Enter a valid value for convert rate: ", false);
 			}
 			input.Add(Tuple.Create(fromCurrency.ToUpper()!, toCurrency.ToUpper()!, convertRate));
-			Console.Write("Continue (y/n)? ");
-			getInput = Console.ReadLine() != "n";
+			Print("Continue (y/n)? ", false);
+			getInput = Console.ReadLine()?.ToLower() != "n";
 		} while (getInput);
 		converter.UpdateConfiguration(input);
 	}
@@ -44,28 +44,37 @@ public class Helper {
 	public static void DoConvert(ICurrencyConverter converter) {
 		var getInput = true;
 		do {
-			Console.WriteLine("Enter origin currency, destination currency, amount: ");
+			Print("Enter origin currency, destination currency, amount: ");
 			string? fromCurrency, toCurrency;
 			double convertRate;
-			Console.Write("Origin currency: ");
+			Print("Origin currency: ", false);
 			while ((fromCurrency = Console.ReadLine()) is null || string.IsNullOrWhiteSpace(fromCurrency)) {
-				Console.Write("Enter a valid value for origin currency: ");
+				Print("Enter a valid value for origin currency: ", false);
 			}
 
-			Console.Write("Destination currency: ");
+			Print("Destination currency: ", false);
 			while ((toCurrency = Console.ReadLine()) is null || string.IsNullOrWhiteSpace(toCurrency)) {
-				Console.Write("Enter a valid value for destination currency: ");
+				Print("Enter a valid value for destination currency: ", false);
 			}
 
-			Console.Write("Amount: ");
+			Print("Amount: ", false);
 			while (!double.TryParse(Console.ReadLine(), out convertRate)) {
-				Console.Write("Enter a valid value for amount: ");
+				Print("Enter a valid value for amount: ", false);
 			}
 			var result = converter.Convert(fromCurrency.ToUpper(), toCurrency.ToUpper(), convertRate);
-			Console.WriteLine($"({convertRate}){fromCurrency} is ({result}){toCurrency}.");
+			Print($"({convertRate}){fromCurrency} is ({result}){toCurrency}.");
 
-			Console.Write("Convert another value (y/n)? ");
-			getInput = Console.ReadLine() != "n";
+			Print("Convert another value (y/n)? ", false);
+			getInput = Console.ReadLine()?.ToLower() != "n";
 		} while (getInput);
+	}
+
+	private static void Print(string source, bool line = true) {
+		if (line) {
+			Console.WriteLine(source);
+		}
+		else {
+			Console.Write(source);
+		}
 	}
 }
