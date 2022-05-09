@@ -14,14 +14,11 @@ public sealed class CurrencyConverter : ICurrencyConverter {
 		_rates.Clear();
 	}
 
+	/*
+		TRIED MANY WAYS, BUT COULD NOT SOLVE THIS PART :(
+	 */
 	public double Convert(string fromCurrency, string toCurrency, double amount) {
-		var result = -1;
-
-		if (fromCurrency == toCurrency) {
-			return amount;
-		}
-
-		return result;
+		return -1.0;
 	}
 
 	public void ResetToDefaults() {
