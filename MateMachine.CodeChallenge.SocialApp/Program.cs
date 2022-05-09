@@ -5,12 +5,13 @@ using Microsoft.EntityFrameworkCore;
 var builder = WebApplication.CreateBuilder(args);
 
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
-builder.Services.AddDbContext<ApplicationDbContext>(options =>
-	options.UseSqlServer(connectionString));
+builder.Services.AddDbContext<DataContext>(options => options.UseNpgsql(connectionString));
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
-builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-	.AddEntityFrameworkStores<ApplicationDbContext>();
+builder.Services.AddIdentity<IdentityUser, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = false)
+	.AddEntityFrameworkStores<DataContext>()
+	.AddDefaultTokenProviders();
+
 builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
@@ -23,6 +24,9 @@ else {
 	app.UseHsts();
 }
 
+using var scope = app.Services.CreateScope();
+await scope.ServiceProvider.GetRequiredService<DataContext>().Database.MigrateAsync();
+
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
@@ -34,6 +38,5 @@ app.UseAuthorization();
 app.MapControllerRoute(
 	name: "default",
 	pattern: "{controller=Home}/{action=Index}/{id?}");
-app.MapRazorPages();
 
-app.Run();
+await app.RunAsync();
