@@ -2,7 +2,7 @@ using MateMachine.CodeChallenge.CurrencyConverterLib;
 
 namespace MateMachine.CodeChallenge.CurrencyConverter;
 
-public class Helper {
+public static class Helper {
 	public static void ShowMenu() {
 		Print($"1: List of converters");
 		Print($"2: Update converter");
@@ -62,7 +62,12 @@ public class Helper {
 				Print("Enter a valid value for amount: ", false);
 			}
 			var result = converter.Convert(fromCurrency.ToUpper(), toCurrency.ToUpper(), convertRate);
-			Print($"({convertRate}){fromCurrency} is ({result}){toCurrency}.");
+			if (result is null) {
+				Print($"Could not convert {fromCurrency} to {toCurrency}! Lack of configuration!");
+			}
+			else {
+				Print($"({convertRate}){fromCurrency} is ({result}){toCurrency}.");
+			}
 
 			Print("Convert another value (y/n)? ", false);
 			getInput = Console.ReadLine()?.ToLower() != "n";

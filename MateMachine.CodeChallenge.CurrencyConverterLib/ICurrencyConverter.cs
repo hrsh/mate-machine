@@ -9,7 +9,7 @@ public interface ICurrencyConverter {
 	/// <summary>
 	/// Converts the specified amount to the desired currency.
 	/// </summary>
-	double Convert(string fromCurrency, string toCurrency, double amount);
+	double? Convert(string fromCurrency, string toCurrency, double amount);
 
 	/// <summary>
 	/// Resets configuration list to its default value.

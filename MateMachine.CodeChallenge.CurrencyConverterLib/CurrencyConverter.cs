@@ -14,11 +14,40 @@ public sealed class CurrencyConverter : ICurrencyConverter {
 		_rates.Clear();
 	}
 
-	/*
-		TRIED MANY WAYS, BUT COULD NOT SOLVE THIS PART :(
-	 */
-	public double Convert(string fromCurrency, string toCurrency, double amount) {
-		return -1.0;
+	// Author note:
+	// Previously, I tried to implement dijkstra algorithm so that 
+	// calculate the scale factor directly! :(
+	public double? Convert(string fromCurrency, string toCurrency, double amount) {
+		var scaleFactor = 1.0;
+
+		var vertices = ConverterHelper.CreateSource(_rates);
+		var graph = new Graph(vertices, _rates);
+
+		var dijkstraAlgorithm = Dijkstra.ShortestPathFunction(graph, fromCurrency);
+		var path = dijkstraAlgorithm(toCurrency);
+
+		if (path is null) {
+			return null;
+		}
+
+		var shortestPath = path as string[] ?? path.ToArray();
+
+		var convertors = new List<Tuple<string, string>>();
+		for (var i = 0; i < shortestPath.Length - 1; i++) {
+			convertors.Add(Tuple.Create(shortestPath[i], shortestPath[i + 1]));
+		}
+		foreach (var (from, to) in convertors) {
+			var converter = _rates.FirstOrDefault(_ => _.Item1 == from && _.Item2 == to);
+			if (converter is not null) {
+				scaleFactor *= converter.Item3;
+			}
+			else {
+				converter = _rates.First(_ => _.Item1 == to && _.Item2 == from);
+				scaleFactor /= converter.Item3;
+			}
+		}
+
+		return FormatOutput(scaleFactor * amount);
 	}
 
 	public void ResetToDefaults() {
@@ -72,7 +101,7 @@ public sealed class CurrencyConverter : ICurrencyConverter {
 		};
 	}
 
-	private double FormatOutput(double input) {
+	private static double FormatOutput(double input) {
 		return Math.Round(input, 5);
 	}
 }
